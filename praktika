@@ -1,0 +1,208 @@
+//hosting
+display();
+ 
+var display = function (){
+    console.log("Hello Hoisting");
+}
+
+//Замыкание и функции
+function outer(){
+    let x = 5;
+    function inner(){
+        x++;
+        console.log(x);
+    };
+    return inner;
+}
+let fn = outer();   // fn = inner, так как функция outer возвращает функцию inner
+// вызываем внутреннюю функцию inner
+fn();   // 6
+fn();   // 7
+fn();   // 8
+
+//Область видимых переменных
+let z = 10;
+function displayZ(){
+  
+    let z = 20;
+     
+    {
+        let z = 30;
+        console.log("Block:", z);
+    }
+     
+    console.log("Function:", z);
+}
+ 
+displayZ();
+console.log("Global:", z);
+
+//Объектно-ориентированное программированние
+function display(){ 
+    console.log(this.name, this.age);
+}
+const move = function(place){ console.log(this.name, "goes to", place)};
+const name = "Tom";
+const age = 37;
+const salary = 500;
+const person = { name, age, salary, display, move};
+ 
+person.display();       // Tom 37
+person.move("cinema");  // Tom goes to cinema
+
+//Параметры Функции 
+function sum(x, y){
+    return x + y;
+}
+ 
+function subtract(x, y){
+    return x - y;
+}
+ 
+function operation(x, y, func){
+  
+    const result = func(x, y);
+    console.log(result);
+}
+ 
+console.log("Sum");
+operation(10, 6, sum);  // 16
+ 
+console.log("Subtract");
+operation(10, 6, subtract); // 4
+
+//Паттерн модуль 
+let calculator = (function(){
+    let data = { number: 0};
+     
+    return {
+        sum: function(n){
+            data.number += n;
+        },
+        subtract: function(n){
+            data.number -= n;
+        },
+        display: function(){
+            console.log("Result: ", data.number);
+        }
+    }
+})();
+calculator.sum(10);
+calculator.sum(3);
+calculator.display();   // Result: 13
+calculator.subtract(4);
+calculator.display();   // Result: 9
+
+//Передача параметров по значению и по ссылке
+function change(array){
+    array[0] = 8;
+}
+function changeFull(array){
+    array = [9, 8, 7];
+}
+ 
+var numbers = [1, 2, 3];
+ 
+console.log("before change:", numbers);     // [1, 2, 3]
+change(numbers);
+console.log("after change:", numbers);      // [8, 2, 3]
+changeFull(numbers);
+console.log("after changeFull:", numbers);  // [8, 2, 3] 
+
+//Предопределенные Фунции 
+function display(){
+    console.log("Доброе утро");
+    display = function(){
+        console.log("Добрый день");
+    }
+}
+// присвоение ссылки на функцию до переопределения
+var displayMessage = display;
+display(); // Доброе утро
+display(); // Добрый день
+displayMessage(); // Доброе утро
+displayMessage(); // Доброе утро, 
+Terms
+Privacy
+
+//Результат функции
+function menu(n){
+  
+    if(n==1) return function(x, y){ return x + y;}
+    else if(n==2) return function(x, y){ return x - y;}
+    else if(n==3) return function(x, y){ return x * y;}
+    return function(){ return 0;};
+}
+ 
+let action = menu(1);
+console.log(action(2, 5));          // 7
+ 
+action = menu(2);
+console.log(action(2, 5));          // -3
+ 
+action = menu(3);
+console.log(action(2, 5));          // 10
+ 
+action = menu(190);
+console.log(action(2, 5));          // 0
+
+//Рекурсивные функии
+function getFibonachi(n)
+{
+    if (n === 0){
+        return 0;
+    }
+    if (n === 1){
+        return 1;
+    }
+    else{
+        return getFibonachi(n - 1) + getFibonachi(n - 2);
+    }
+}
+var result = getFibonachi(8); //21 
+console.log(result); // 21
+
+//Стрелочные функии 
+const square = n => {
+    let result = n * n;
+    console.log(result);
+}
+  
+square(5);     // 25
+square(6);     // 36
+
+//Условные конструкции
+const income = 300;
+switch(income){
+ 
+    case 100 : 
+        console.log("Доход равен 100");
+        break;
+    case 200 : 
+        console.log("Доход равен 200");
+        break;
+    case 300 : 
+        console.log("Доход равен 300");
+        break;
+    default: 
+        console.log("Доход неизвестной величины");
+        break;
+}
+
+//Функциональное программирование функции
+function goodMorning(){
+    console.log("Доброе утро");
+}
+function goodEvening(){
+    console.log("Добрый вечер");
+}
+let message = goodMorning;      // присваиваем переменной message функцию goodMorning
+message();      // Доброе утро
+message = goodEvening;          // меняем функцию в переменной message
+message();      // Добрый вечер
+
+//Циклы 
+const people = ["Tom", "Sam", "Bob"];
+for(const person of people) {
+    console.log(person);
+}
